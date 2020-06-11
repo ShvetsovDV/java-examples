@@ -1,0 +1,42 @@
+@startuml
+
+class SoapFaultMappingExceptionResolver
+class WsdlConfig{
+  +exceptionResolver()
+}
+
+enum ApiExceptionCodes {
+code
+description
+SERVICE_NETWORK_EXCEPTION
+SERVER_VALIDATE_EXCEPTION
+INTERNAL_SERVER_ERROR
+}
+class DetailSoapFaultDefinitionExceptionResolver
+class InternalServerException
+class ServerValidateException
+class ServiceFault{
+code
+description
+}
+class ServiceFaultException{
+ServiceFault getServiceFault()
+}
+class ServiceFaultFactory
+class RuntimeException
+
+ServiceFaultException o-- DetailSoapFaultDefinitionExceptionResolver
+ServiceFault o-- ServiceFaultFactory
+ServiceFaultFactory o-- ServiceFaultException
+
+RuntimeException <|-- ServiceFaultException
+ServiceFaultException <|--  InternalServerException
+ServiceFaultException <|--  ServerValidateException
+InternalServerException --o ApiExceptionCodes
+ServerValidateException --o ApiExceptionCodes
+
+SoapFaultMappingExceptionResolver <|-- DetailSoapFaultDefinitionExceptionResolver
+WsdlConfig --* DetailSoapFaultDefinitionExceptionResolver
+
+
+@enduml

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="false" scanPeriod="30 seconds">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level -[%.200thread] - soapserviceprototype[%X{RT}] -name[%X{RTN}] %logger{36} - %msg%n</Pattern>
+        </layout>
+    </appender>
+    <appender name="FILEROLLING"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/soapserviceprototype-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>2048KB</maxFileSize>
+            <maxHistory>180</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level -[%.200thread] - soapserviceprototype[%X{RT}] -name[%X{RTN}] %logger{36} - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.hibernate.SQL" level="ERROR" additivity="false">
+        <!--<appender-ref ref="STDOUT" />-->
+        <appender-ref ref="FILEROLLING" />
+    </logger>
+
+    <logger name="org.hibernate" level="ERROR" additivity="false">
+        <!--<appender-ref ref="STDOUT" />-->
+        <appender-ref ref="FILEROLLING" />
+    </logger>
+
+    <root level="info">
+        <!-- <appender-ref ref="STDOUT" />-->
+         <appender-ref ref="FILEROLLING" />
+    </root>
+
+</configuration>
