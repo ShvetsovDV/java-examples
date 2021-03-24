@@ -1,0 +1,3 @@
+docker build -t test/string-boot-docker .
+
+docker run -p 8072:8071 test/string-boot-docker
